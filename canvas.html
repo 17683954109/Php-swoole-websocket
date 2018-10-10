@@ -6,25 +6,25 @@
 </head>
 <body>
 <canvas id="demo" width="500" height="400">
-    <p>浏览器不支持canvas</p>
+    <p>浏览器不支持 Canvas </p>     <!-- 不支持 canvas 的浏览器显示该提示-->
 </canvas>
 <script>
-    var canvas = document.getElementById('demo');
-    var ctx = canvas.getContext('2d');
-    ctx.rect(100,200,50,50);
-    ctx.fillStyle='rgba(125,125,125,0.5)';
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(105,275);
-    ctx.lineTo(150,300);
-    ctx.lineTo(175,350);
-    ctx.fill();
-    ctx.closePath();
-    ctx.moveTo(0,150);
-    ctx.lineTo(75,135);
-    ctx.lineTo(100,150);
-    ctx.fill();
-    ctx.closePath();
+    var canvas = document.getElementById('demo');   // 获取 canvas 对象
+    var ctx = canvas.getContext('2d');  // 获取绘图上下文
+    ctx.rect(100,200,50,50);    //  填充一个矩形，rect ( x 轴, y 轴, 宽度, 高度)
+    ctx.fillStyle='rgba(125,125,125,0.5)';  // 设置填充颜色
+    ctx.fill();     //  进行填充
+    ctx.beginPath();    //  开始绘制一个路径
+    ctx.moveTo(105,275);    //  将画笔移动到指定位置( x 轴, y 轴)
+    ctx.lineTo(150,300);    //  画笔从当前位置绘制一条线到指定位置 ( x 轴, y 轴)
+    ctx.lineTo(175,350);        // repeat
+    ctx.fill();     // 进行填充
+    ctx.closePath();    // 结束绘制路径
+    ctx.moveTo(0,150);  //  将画笔移动到指定位置( x 轴, y 轴)
+    ctx.lineTo(75,135);     //  画笔从当前位置绘制一条线到指定位置 ( x 轴, y 轴)
+    ctx.lineTo(100,150);    // repeat
+    ctx.fill();     //  填充
+    ctx.closePath();    //  结束路径绘制
 </script>
 </body>
 </html>
