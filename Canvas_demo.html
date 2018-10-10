@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Canvas</title>
+</head>
+<body>
+<canvas id="demo" width="500" height="400">
+    <p>你的浏览器不支持Canvas</p>
+</canvas>
+<img src="" id="canvass"/>
+</body>
+<script>
+    let canvas = document.getElementById('demo');
+    let ctx = canvas.getContext('2d');
+    ctx.rect(0,0,500,400);
+    ctx.fillStyle='#FFFFFF';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(125,125,125,0.3)';
+    ctx.rect(100,150,50,50);
+    let grd = ctx.createLinearGradient(100,150,150,175);
+    grd.addColorStop(0,'#333333');
+    grd.addColorStop(1,'rgba(125,125,125,0.3)');
+    ctx.fillStyle = grd;
+    ctx.fill();
+    ctx.closePath();
+    ctx.fillStyle='rgba(125,125,125,0.5)';
+    ctx.beginPath();
+    ctx.moveTo(170,180);
+    ctx.lineTo(210,230);
+    ctx.lineTo(230,260);
+    ctx.fill();
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.lineWidth=0.5;
+    ctx.arc(270,200,30,0,2*Math.PI,false);
+    ctx.stroke();
+    ctx.closePath();
+    ctx.fillStyle='#999999';
+    ctx.font='14px FiraCode';
+    ctx.fillText('Canvas',100,250,100);
+    ctx.save();
+    let image_url = canvas.toDataURL('image/png');
+    document.getElementById('canvass').src = image_url;
+    let arr = image_url.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    let res = new File([u8arr],'demo.png',{type:mime});
+    document.onkeyup=function (e){
+        if (e.key === 'Enter'){
+            save_file(res,'demo.png');
+        }
+    };
+    function save_file(data,filename)
+    {
+        let a = document.createElement('a');
+        let event = new MouseEvent('click');
+        a.download = filename;
+        a.href = image_url;
+        a.dispatchEvent(event);
+    }
+</script>
+</html>
