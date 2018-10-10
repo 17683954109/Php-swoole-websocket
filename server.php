@@ -9,8 +9,6 @@ $server->on('message',function($server,$frame){
     }
 });
 $server->on('close',function($server,$fd){
-    if(count($server->connection_list())==0){
-        exit;
-    }
+
 });
 $server->start();
