@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas_demo02</title>
+</head>
+<body>
+<canvas id="main_box">
+    <p>你的浏览器不支持canvas</p>
+</canvas>
+</body>
+<script>
+    let Timer = setInterval(function () {
+        window.location.reload();
+    },2000);
+    let canvas = document.getElementById('main_box');
+    let ctx = canvas.getContext('2d');
+    ctx.strokeStyle='#cccccc';
+    ctx.arc(100,100,50,0,Math.PI*2,true);   // 脸
+    ctx.fillStyle='#cccccc';
+    ctx.font='10px FiraCode';
+    ctx.fillText('Hello World !',25,40,75); //  左上角文字
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(76,95,15,0,Math.PI*2,false);    //  左眼
+    ctx.closePath();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(126,95,15,0,Math.PI*2,false);   //  右眼
+    ctx.closePath();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(102,120,18,0.35,Math.PI-0.35,false);    //  嘴巴
+    ctx.stroke();
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.moveTo(105,125);
+    ctx.bezierCurveTo(105,125,120,125,100,100);
+    ctx.stroke();
+</script>
+</html>
