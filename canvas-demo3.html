@@ -24,7 +24,7 @@
     canvas.width = document.documentElement.clientWidth;
     canvas.height = document.documentElement.clientHeight;
     let ctx = canvas.getContext('2d');
-    function ball(x,y) {
+    function Ball(x,y) {
         this.x = x;
         this.y = y;
         this.r = 60;
@@ -32,19 +32,19 @@
         ballArr.push(this);
     }
     let ballArr = [];
-    ball.prototype.update=function () {
+    Ball.prototype.update=function () {
         this.x-=Math.random()*16-9;
         this.y-=Math.random()*16-9;
         this.r -= Math.random();
     };
-    ball.prototype.die =function(){
+    Ball.prototype.die =function(){
         for (let i =0;i<ballArr.length;i++){
             if (ballArr[i]===this){
-                ballArr.splice(i);
+                ballArr.splice(i,1);
             }
         }
     };
-    ball.prototype.rander=function () {
+    Ball.prototype.rander=function () {
         ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x,this.y,this.r,0,Math.PI *2,false);
@@ -52,7 +52,7 @@
         ctx.closePath();
     };
     canvas.onmousemove=function(event){
-      new ball(event.clientX+Math.random()*28,event.clientY+Math.random()*28);
+      new Ball(event.clientX+Math.random()*28,event.clientY+Math.random()*28);
     };
     setInterval(function () {
         ctx.clearRect(0,0,canvas.width,canvas.height);
