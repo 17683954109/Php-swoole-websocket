@@ -20,48 +20,48 @@
 <canvas id="myCanvas"></canvas>
 </body>
 <script>
-    let canvas = document.getElementById('myCanvas');
-    canvas.width = document.documentElement.clientWidth;
-    canvas.height = document.documentElement.clientHeight;
-    let ctx = canvas.getContext('2d');
-    function Ball(x,y) {
-        this.x = x;
-        this.y = y;
-        this.r = 60;
-        this.color = `rgba(${Math.random()*256},${Math.random()*256},${Math.random()*256},0.7)`;
-        ballArr.push(this);
+    let canvas = document.getElementById('myCanvas');   //  获取Canvas 对象
+    canvas.width = document.documentElement.clientWidth;    //  获取canvas 宽度
+    canvas.height = document.documentElement.clientHeight;  //  获取 canvas 高度
+    let ctx = canvas.getContext('2d');  //  获取 canvas 上下文
+    function Ball(x,y) {    //  创建Ball 原型
+        this.x = x;     //  小球的 x 坐标
+        this.y = y;     //  小球的 y 坐标
+        this.r = 60;    //  小球的半径
+        this.color = `rgba(${Math.random()*256},${Math.random()*256},${Math.random()*256},0.7)`;    //  小球的颜色
+        ballArr.push(this); //  将自己推入小球数组
     }
-    let ballArr = [];
-    Ball.prototype.update=function () {
-        this.x-=Math.random()*16-9;
+    let ballArr = [];   //  小球数组，定时器循环调用数组内小球的数据更新和渲染方法
+    Ball.prototype.update=function () {     //    给小球增加更新坐标，大小等数据
+        this.x-=Math.random()*16-9;     //  使用随机数，使其出现抖动效果
         this.y-=Math.random()*16-9;
-        this.r -= Math.random();
+        this.r -= Math.random();    //  使其大小随机且逐渐缩小
     };
-    Ball.prototype.die =function(){
+    Ball.prototype.die =function(){     //  小球自己的移除方法，大小为0 时自动从小球数组中移除
         for (let i =0;i<ballArr.length;i++){
             if (ballArr[i]===this){
                 ballArr.splice(i,1);
             }
         }
     };
-    Ball.prototype.rander=function () {
+    Ball.prototype.rander=function () {     // 小球的渲染方法
         ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x,this.y,this.r,0,Math.PI *2,false);
         ctx.fill();
         ctx.closePath();
     };
-    canvas.onmousemove=function(event){
+    canvas.onmousemove=function(event){     //  鼠标滑动时获取鼠标的坐标，并生成新的小球
       new Ball(event.clientX+Math.random()*28,event.clientY+Math.random()*28);
     };
-    setInterval(function () {
+    setInterval(function () {   //  定时器循环更新小球的数据并渲染，并将大小为 0 的小球踢出数组
         ctx.clearRect(0,0,canvas.width,canvas.height);
-        ballArr.forEach(e=>{
-            e.update();
-            if (e.r<0){
+        ballArr.forEach(e=>{    // 循环小球数组，调用其更新和渲染方法
+            e.update();     //  更新小球的坐标，大小
+            if (e.r<0){     //  小球大小为0 ，踢出数组
                e.die();
             }else{
-                e.rander();
+                e.rander(); //  渲染小球
             }
         });
     },20);
